@@ -1,15 +1,36 @@
-const container = document.querySelector(".container");
-const gridRow = document.createElement("div");
-gridRow.style = "display: flex";
+const containerToHoldBoard = document.querySelector(".container");
 
-for (let i = 1; i <= 16; i++) {
-  const boardSquare = document.createElement("div");
-  boardSquare.style.border = "solid black";
-  boardSquare.style.height = "15px";
-  boardSquare.style.width = "15px";
-  gridRow.appendChild(boardSquare);
+function createBoardGrid(size) {
+  for (let j = 1; j <= size; j++) {
+    const gridRow = document.createElement("div");
+    gridRow.classList.add("gridRow");
+    for (let i = 1; i <= size; i++) {
+      const square = document.createElement("div");
+      square.classList.add("square");
+      gridRow.appendChild(square);
+    }
+    containerToHoldBoard.appendChild(gridRow);
+  }
 }
 
-for (let i = 1; i <= 16; i++) {
-  container.append(gridRow.cloneNode(true));
+function resetBoardGrid() {
+  for (boardSquare of boardSquares) {
+    boardSquare.style.backgroundColor = "aqua";
+  }
 }
+
+createBoardGrid(16);
+
+const boardSquares = document.querySelectorAll(".square");
+
+for (boardSquare of boardSquares) {
+  boardSquare.addEventListener("mouseleave", (e) => {
+    e.target.style.backgroundColor = "black";
+  });
+}
+
+const button = document.querySelector("button");
+
+button.addEventListener("click", (e) => {
+  resetBoardGrid();
+});
