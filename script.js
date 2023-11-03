@@ -1,36 +1,42 @@
 const containerToHoldBoard = document.querySelector(".container");
 
-function createBoardGrid(size) {
-  for (let j = 1; j <= size; j++) {
+let boardSize = 16;
+
+function createBoardGrid(boardSize) {
+  for (let j = 1; j <= boardSize; j++) {
     const gridRow = document.createElement("div");
     gridRow.classList.add("gridRow");
-    for (let i = 1; i <= size; i++) {
+    for (let i = 1; i <= boardSize; i++) {
       const square = document.createElement("div");
       square.classList.add("square");
       gridRow.appendChild(square);
     }
     containerToHoldBoard.appendChild(gridRow);
+    const boardSquares = document.querySelectorAll(".square");
+
+    for (boardSquare of boardSquares) {
+      boardSquare.addEventListener("mouseleave", (e) => {
+        e.target.style.backgroundColor = "black";
+      });
+    }
   }
 }
 
 function resetBoardGrid() {
-  for (boardSquare of boardSquares) {
-    boardSquare.style.backgroundColor = "aqua";
+  const boardRows = document.querySelectorAll(".gridRow");
+  for (row of boardRows) {
+    row.remove();
   }
+  createBoardGrid(boardSize);
 }
 
-createBoardGrid(16);
+createBoardGrid(boardSize);
 
-const boardSquares = document.querySelectorAll(".square");
+const resetButton = document.querySelector(".resetGridButton");
+resetButton.addEventListener("click", resetBoardGrid);
 
-for (boardSquare of boardSquares) {
-  boardSquare.addEventListener("mouseleave", (e) => {
-    e.target.style.backgroundColor = "black";
-  });
-}
-
-const button = document.querySelector("button");
-
-button.addEventListener("click", (e) => {
+const changeGridSizeButton = document.querySelector(".changeGridSize");
+changeGridSizeButton.addEventListener("click", (e) => {
+  boardSize = prompt("Enter board size");
   resetBoardGrid();
 });
