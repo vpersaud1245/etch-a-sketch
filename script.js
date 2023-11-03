@@ -38,5 +38,8 @@ resetButton.addEventListener("click", resetBoardGrid);
 const changeGridSizeButton = document.querySelector(".changeGridSize");
 changeGridSizeButton.addEventListener("click", (e) => {
   boardSize = prompt("Enter board size");
+  if (boardSize > 100) {
+    boardSize = prompt("Enter a size less than 100");
+  }
   resetBoardGrid();
 });
